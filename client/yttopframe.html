@@ -1,0 +1,68 @@
+<html>
+<style>
+  .btn {
+      border: none;
+      background-color: inherit;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .button1 {background-color: #4CAF50;} /* Green */
+
+
+  .container {
+            height: 100px;
+            position: relative;
+
+}
+
+
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+}
+
+/* Green */
+
+</style>
+
+  <body bgcolor="#FFFFFF">
+
+
+
+   <p>
+    <img src="youtube-fbfeed.jpeg" align=left width="300" height="100">
+     <h1 align=center><font face="times new roman" color="#000000" >YOUTUBE TRENDING</h1>
+
+        <div class="container">
+          <div class="vertical-center">
+            <button onclick="myFunction()">Reload Database</button>
+
+          </div>
+        </div>
+<!--       <button onclick="myFunction()" id="myButton" align=right>Reload DataBase!</button>
+ -->
+      <script type="text/javascript">
+        function myFunction(){
+          fetch('http://localhost:3000/scrapeYoutubeVideos', {
+      // mode: 'no-cors',
+      method: "get",
+      headers: {
+           "Content-Type": "application/json"
+      }
+    });
+        }
+        
+
+      </script>
+
+   </p>
+   <br>
+</body>
+</html>

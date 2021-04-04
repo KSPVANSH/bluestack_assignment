@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<iframe width="560" height="315" id="video-player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+	<h1 id="video-title"></h1>
+
+	<p id= "Description"></p>
+
+	<h2 id="Video-subscribers"></h2>
+	<h3 id="channel_title"></h3>
+	<h4 id="Viewcount"></h4>
+
+
+	<script type="text/javascript">
+
+
+
+		
+
+	
+		const link = window.location.href;
+		var url =  new URL(link);
+		var id = url.searchParams.get("video_id");
+
+
+		fetch('http://localhost:3000/youtubeVideo/' + id, {
+	      // mode: 'no-cors',
+	      method: "get",
+	      headers: {
+	           "Content-Type": "application/json"
+	      }
+	    })
+		.then(response => response.json())
+	  	.then(frame => {
+
+	    console.log(frame[0])
+
+	    const iframe = document.getElementById("video-player");
+	    iframe.src = "https://www.youtube.com/embed/" + frame[0].Video_URL.split("?v=")[1];
+	    iframe.title = frame[0].Video_Title;
+
+
+	    const h1 = document.getElementById("video-title");
+	    h1.innerText = frame[0].Video_Title;
+
+	    const p = document.getElementById("Description");
+	    p.innerText = "Description : " + frame[0].Description;
+
+	     const h2 = document.getElementById("Video-subscribers" );
+	    h2.innerText = "Subscribers : " + frame[0].subscribers;
+
+	    const h3 = document.getElementById("channel_title");
+	    h3.innerText = "Channel-Title : " + frame[0].channel_title;
+
+	    const h4 = document.getElementById("Viewcount");
+	    h4.innerText = "Viewcount : " + frame[0].Viewcount;
+
+
+
+
+
+
+			})
+
+
+
+	</script>
+    
+
+</body>
+</html>

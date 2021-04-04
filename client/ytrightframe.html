@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div id="body"></div>
+  <script type="text/javascript">
+    
+    fetch('http://localhost:3000/returnYoutubeVideos', {
+      // mode: 'no-cors',
+      method: "get",
+      headers: {
+           "Content-Type": "application/json"
+      }
+    })
+  .then(response => response.json())
+  .then(data => {
+
+    console.log(data)
+    data.forEach((item,index) =>{
+    	//Create thumbnail
+    	const img = document.createElement('img');
+    	img.src = item.Video_Thumbnail;
+    	img.className = "card-img-top";
+    	img.width = 300;
+    	img.height=150;
+
+    	const h = document.createElement('h5')
+    	h.innerText = item.Video_Title;
+    	h.className = "card-title";
+
+    	const p = document.createElement('p')
+    	p.innerText = item.Description;
+		p.className = "card-text";
+
+		const a = document.createElement ('a')
+		a.innerText = 'Go to Video';
+		a.target = "_blank";
+		a.href = 'ytnext.html?video_id='+item.video_id;
+
+		
+
+		const cardBody = document.createElement("div")
+		cardBody.appendChild(h);
+		cardBody.appendChild(p);
+		cardBody.appendChild(a);
+
+
+
+
+		const card = document.createElement("div")
+		card.appendChild(img);
+		card.appendChild(cardBody);
+
+		card.className = "card" 
+
+		document.getElementById('body').appendChild(card);
+
+		
+
+    })
+  });
+
+  
+  </script>
+
+</body>
+</html>
