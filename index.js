@@ -24,9 +24,13 @@ app.get('/scrapeYoutubeVideos',(req,res) =>{
 	fetchHtmlFromUrl('https://www.youtube.com/feed/trending').then((page)=>{
 		console.log('page')
 		const dataInJSON = page('script').get()[33].children[0].data.split('var ytInitialData = ')[1].split(';')[0];
-		console.log(dataInJSON);
+		// console.log(dataInJSON);
 		const parsedData = JSON.parse(dataInJSON);
-		const youtubeTrendingVideos = parsedData.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].shelfRenderer.content.expandedShelfContentsRenderer.items
+		const youtubeTrendingVideos = parsedData.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents.flatMap(content => {
+			if(content.itemSectionRenderer.contents[0].shelfRenderer.content.expandedShelfContentsRenderer)
+				return content.itemSectionRenderer.contents[0].shelfRenderer.content.expandedShelfContentsRenderer.items
+			return [];
+		})
 
 		connection.query("DELETE from Video");
 		connection.query("DELETE from Channel");
