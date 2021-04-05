@@ -46,7 +46,7 @@ app.get('/scrapeYoutubeVideos',(req,res) =>{
 		  const viewcount = _.toString(item.videoRenderer.viewCountText.simpleText);
 		  const video_url = _.toString(item.videoRenderer.navigationEndpoint.commandMetadata.webCommandMetadata.url);
 			connection.query("INSERT INTO Channel(channel_title) VALUES ('" + channel_title + "')", function (err, rows, fields){
-				if(rows.insertId){
+				if(rows && rows.insertId){
 					connection.query("INSERT INTO Video (channel_id  ,Video_URL, Video_Thumbnail , Video_Title , Description , Viewcount) VALUES("+ rows.insertId +",'" + video_url + "','" + thumbnail + "','" + title + "','" + description + "','" +viewcount +"');",function (err, rows, fields) {
 			  			if (err) throw err
 					})
