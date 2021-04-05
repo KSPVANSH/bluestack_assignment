@@ -15,6 +15,7 @@ var connection = mysql.createConnection({
 		charset: 'utf8mb4'
 })
 
+
 const {
   fetchHtmlFromUrl,
 } = require("./util");
@@ -23,6 +24,7 @@ app.get('/scrapeYoutubeVideos',(req,res) =>{
 	fetchHtmlFromUrl('https://www.youtube.com/feed/trending').then((page)=>{
 		console.log('page')
 		const dataInJSON = page('script').get()[33].children[0].data.split('var ytInitialData = ')[1].split(';')[0];
+		console.log(dataInJSON);
 		const parsedData = JSON.parse(dataInJSON);
 		const youtubeTrendingVideos = parsedData.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents[0].shelfRenderer.content.expandedShelfContentsRenderer.items
 
