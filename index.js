@@ -8,13 +8,12 @@ app.use(cors());
 
 const mysql = require('mysql')
 var connection = mysql.createConnection({
-		host: 'localhost',
-		user: 'root',
-		password: 'vansh1234',
-		database: 'bluestack_assignment',
+		host: 'us-cdbr-east-03.cleardb.com',
+		user: 'b50bc5ae6d7aac',
+		password: 'ab952b7f',
+		database: 'heroku_71698719d72c476',
 		charset: 'utf8mb4'
 })
-
 
 const {
   fetchHtmlFromUrl,
